@@ -1,0 +1,2 @@
+module ViewingHelper
+end

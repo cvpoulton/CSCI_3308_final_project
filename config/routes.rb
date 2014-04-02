@@ -1,4 +1,16 @@
 CSCI3308FinalProject::Application.routes.draw do
+  get "account/login"
+
+  get "account/new"
+
+  get "account/friends"
+
+  get "account/preferences"
+
+  get "viewing/newsfeed"
+
+  get "viewing/profile"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
