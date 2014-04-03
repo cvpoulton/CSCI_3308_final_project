@@ -1,0 +1,20 @@
+%h1 Create New Account
+
+= form_tag 'create' do
+
+  = label :user, :first_name, 'First Name'
+  = text_field :user, :first_name
+
+  = label :user, :last_name, 'Last Name'
+  = text_field :user, :last_name
+
+  = label :user, :password, 'Password'
+  = text_field :user, :password
+
+  = label :user, :interests, 'Interests'
+  = text_field :user, :interests
+
+  = label :user, :quotes, 'Quotes'
+  = text_field :user, :quotes
+
+  = submit_tag 'Create Account'

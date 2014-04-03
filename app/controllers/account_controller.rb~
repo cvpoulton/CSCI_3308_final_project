@@ -1,0 +1,19 @@
+class AccountController < ApplicationController
+  def login
+  end
+
+  def new
+    # Just render view
+  end
+
+  def friends
+  end
+
+  def preferences
+  end
+
+  def create
+    User.create!(params[:user])
+    redirect_to '/account/newsfeed'
+  end
+end

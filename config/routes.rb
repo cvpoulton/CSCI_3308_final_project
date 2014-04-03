@@ -1,7 +1,9 @@
 CSCI3308FinalProject::Application.routes.draw do
-  get "account/login"
+  get "account/login" # Form to login
+  post "account/login_check" # Actually logs in
 
-  get "account/new"
+  get "account/new" # Form to make a new account
+  post "account/create"# Actually makes the new account
 
   get "account/friends"
 

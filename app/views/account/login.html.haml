@@ -1,0 +1,11 @@
+%h1 Login
+
+= form_tag 'login_check' do
+
+  = label :login, :name, 'Name'
+  = text_field :login, :name
+
+  = label :login, :password, 'Password'
+  = text_field :login, :password
+
+  = submit_tag 'Login'
