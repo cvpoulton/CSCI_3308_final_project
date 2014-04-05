@@ -34,10 +34,15 @@ class AccountController < ApplicationController
     end
   end
 
-  def create # No view associated with it, WHAT ABOUT DUPLICATE NAMES?!?!?
-    @current_user = User.create!(params[:user]) # Create new user
-    session[:login_id] = @current_user.id
-    # Need to set walldate of user here!!!
-    redirect_to '/viewing/newsfeed' # Redirect to Newsfeed
+  def create # No view associated with it
+    if User.find(:all, :conditions => {:username => params[:user][:username]}).length != 0 
+      redirect_to '/account/new' # If username alraedy exisits don't let them make the account
+    else
+      @current_user = User.create!(params[:user]) # Create new user
+      session[:login_id] = @current_user.id
+      @current_user.walldate = Time.now
+      @current_user.save!
+      redirect_to '/viewing/newsfeed' # Redirect to Newsfeed
+    end
   end
 end
