@@ -1,6 +1,9 @@
 %h1 Create New Account
 
-= form_tag 'create' do
+= form_tag '/account/create' do
+
+  = label :user, :username, 'Username'
+  = text_field :user, :username
 
   = label :user, :first_name, 'First Name'
   = text_field :user, :first_name
