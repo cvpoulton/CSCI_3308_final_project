@@ -1,8 +1,7 @@
 class AccountController < ApplicationController
   def login
-    if session.has_key?(:login_id) # If logged in already
-      @current_user = User.find(session[:login_id]) # Set current user for header
-    end
+    # May want to check here if we are already logged in! 
+    # Just render view
   end
 
   def login_check #Check if supplied data (from params) is actually a username/password combo
@@ -20,9 +19,7 @@ class AccountController < ApplicationController
   end
 
   def new
-    if session.has_key?(:login_id) # If logged in already
-      @current_user = User.find(session[:login_id]) # Set current user for header
-    end
+    # Just render view
   end
 
   def friends

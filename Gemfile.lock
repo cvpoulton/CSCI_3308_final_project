@@ -40,6 +40,8 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
+    haml (4.0.5)
+      tilt
     hike (1.2.3)
     i18n (0.6.9)
     journey (1.0.4)
@@ -115,6 +117,7 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-rails (~> 3.2.1)
+  haml
   jquery-rails
   rails (= 3.2.16)
   rspec-rails (= 2.13.1)
