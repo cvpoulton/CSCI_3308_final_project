@@ -1,19 +1,26 @@
 CSCI3308FinalProject::Application.routes.draw do
   root :to => 'account#login'
+  match '/login',       to: 'account#login',       via: 'get'
+  match '/login_check', to: 'account#login_check', via: 'post'
+  match '/new',         to: 'account#new',         via: 'get'
+  match '/create',      to: 'account#create',      via: 'post'
+  match '/friends',     to: 'account#friends',     via: 'get'
+  match '/preferences', to: 'account#preferences', via: 'get'
+
+  match '/newsfeed',    to: 'viewing#newsfeed',    via: 'get'
+  match '/profile',     to: 'viewing#profile',     via: 'get'
+
+  #get "account/login" # Form to login
+  #post "account/login_check" # Actually logs in
+
+  #get "account/new" # Form to make a new account
+  #post "account/create"# Actually makes the new account
   
-  get "account/login" # Form to login
-  post "account/login_check" # Actually logs in
+  #get "account/friends"
+  #get "account/preferences"
 
-  get "account/new" # Form to make a new account
-  post "account/create"# Actually makes the new account
-
-  get "account/friends"
-
-  get "account/preferences"
-
-  get "viewing/newsfeed"
-
-  get "viewing/profile"
+  #get "viewing/newsfeed"
+  #get "viewing/profile"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

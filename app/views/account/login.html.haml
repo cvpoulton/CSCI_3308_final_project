@@ -1,6 +1,6 @@
 %h1 Login
 
-= form_tag 'login_check' do
+= form_tag login_check_path do
 
   = label :login, :username, 'Username'
   = text_field :login, :username
@@ -11,4 +11,4 @@
   = submit_tag 'Login'
 
 
-= link_to 'Make new account', '/account/new'
+= link_to 'Make new account', new_path

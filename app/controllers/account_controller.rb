@@ -1,4 +1,6 @@
 class AccountController < ApplicationController
+  before_filter :redirect_if_not_logged_in, only: [:friends, :preferences]
+
   def login
     if session.has_key?(:login_id) # If logged in already
       @current_user = User.find(session[:login_id]) # Set current user for header
@@ -9,14 +11,14 @@ class AccountController < ApplicationController
     @potential_users = User.find(:all, :conditions => {:username => params[:login][:username]})
     if @potential_users.length != 1 # No or more than one user found
       flash[:error] = "Username not found!"
-      redirect_to '/account/login'
+      redirect_to login_path
     elsif @potential_users[0].password == params[:login][:password] # Only one user found and it was the right password
       session[:login_id] = @potential_users[0].id
       @current_user = @potential_users[0]
-      redirect_to '/viewing/newsfeed'
+      redirect_to newsfeed_path
     else # Password was wrong
       flash[:error] = "Wrong password!"
-      redirect_to '/account/login'
+      redirect_to login_path
     end
 
   end
@@ -28,37 +30,27 @@ class AccountController < ApplicationController
   end
 
   def friends
-    if not session.has_key?(:login_id) # If not logged in then redirect to login page
-      redirect_to '/account/login'
-    else
-      @current_user = User.find(session[:login_id]) # Set current user for header
-    end
   end
 
   def preferences
-    if not session.has_key?(:login_id) # If not logged in then redirect to login page
-      redirect_to '/account/login'
-    else
-      @current_user = User.find(session[:login_id]) # Set current user for header
-    end
   end
 
   def create # No view associated with it
     if User.find(:all, :conditions => {:username => params[:user][:username]}).length != 0 
       flash[:error] = "Username already taken!"
-      redirect_to '/account/new' # If username already exisits don't let them make the account
+      redirect_to new_path # If username already exisits don't let them make the account
     elsif params[:user][:username] == "" or params[:user][:first_name] == "" or params[:user][:last_name] == "" or params[:user][:password] == "" or params[:confirm][:passwordConfirm] == ""
       flash[:error] = "Must specify username, first and last name, and password along with confirmation!"
-      redirect_to '/account/new'
+      redirect_to new_path
     elsif params[:user][:password] != params[:confirm][:passwordConfirm]
       flash[:error] = "Password confirmation does not match password!"
-      redirect_to '/account/new'
+      redirect_to new_path
     else
       @current_user = User.create!(params[:user]) # Create new user
       session[:login_id] = @current_user.id
       @current_user.walldate = Time.now
       @current_user.save!
-      redirect_to '/viewing/newsfeed' # Redirect to Newsfeed
+      redirect_to newsfeed_path # Redirect to Newsfeed
     end
   end
 end
