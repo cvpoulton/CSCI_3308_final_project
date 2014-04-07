@@ -1,4 +1,6 @@
 CSCI3308FinalProject::Application.routes.draw do
+  root :to => 'account#login'
+  
   get "account/login" # Form to login
   post "account/login_check" # Actually logs in
 
