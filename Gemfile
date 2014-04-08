@@ -26,7 +26,13 @@ group :devolopment, :test do
   gem 'rspec-rails', '2.13.1'
 end
 
-
+group :test, :devolopment do
+	gem 'cucumber-rails'
+	gem 'cucumber-rails-training-wheels'
+	gem 'database_cleaner'
+	gem 'capybara'
+	gem 'launchy'
+end
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
