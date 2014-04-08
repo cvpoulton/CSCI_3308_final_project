@@ -48,7 +48,7 @@ Scenario: forgot name information
   # Should say we need to specify more things
   Then I should see "Must specify"
 
-Scenario: user alread exists
+Scenario: user already exists
   When I follow "Make new account"
   Then I should be on the new page
   When I fill in "Username" with "pope"
