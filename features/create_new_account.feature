@@ -34,7 +34,7 @@ Scenario: passwords don't match
   # Should be redirected to new page instead of newsfeed
   Then I should be on the new page
   # Should say the passwords don't match
-  Then I should see "does not match" 
+  And I should see "does not match" 
 
 Scenario: forgot name information
   When I follow "Make new account"
@@ -46,7 +46,7 @@ Scenario: forgot name information
   # Should be redirected to new page instead of newsfeed
   Then I should be on the new page
   # Should say we need to specify more things
-  Then I should see "Must specify"
+  And I should see "Must specify"
 
 Scenario: user already exists
   When I follow "Make new account"
@@ -60,4 +60,4 @@ Scenario: user already exists
   # Should be redirected to new page instead of newsfeed
   Then I should be on the new page
   # Should say the username is already taken
-  Then I should see "already taken"
+  And I should see "already taken"
