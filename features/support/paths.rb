@@ -15,6 +15,13 @@ module NavigationHelpers
 
     when /^the (SocialNetwork )?home\s?page$/ then '/'
 
+    # Below is not needed but useful if routes.rb is ever changed
+    when /^the Newsfeed page$/i then '/newsfeed'
+    when /^the Login page$/i then '/login'
+    when /^the Friends page$/i then '/friends'
+    when /^the Preferences page$/i then '/preferences'
+    when /^the New page$/i then '/new'
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
