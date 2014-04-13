@@ -21,5 +21,6 @@ Scenario: update user profile
   When I fill in "Quotes" with "Killing it!"
   When I press "Update"
   Then I should be on the preferences page
-  And my interests should be "Pizza and computer science!"
+  And I should see "Updated profile!"
+  And my interests should be "Pizza and computer science"
   And my quotes should be "Killing it!"

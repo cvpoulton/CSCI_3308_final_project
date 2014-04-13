@@ -1,5 +1,5 @@
 class AccountController < ApplicationController
-  before_filter :redirect_if_not_logged_in, only: [:friends, :preferences]
+  before_filter :redirect_if_not_logged_in, only: [:friends, :preferences, :update]
 
   def login
     if session.has_key?(:login_id) # If logged in already
@@ -33,6 +33,14 @@ class AccountController < ApplicationController
   end
 
   def preferences
+  end
+
+  def update
+    @current_user.interests = params[:current_user][:interests]
+    @current_user.quotes = params[:current_user][:quotes]
+    @current_user.save!
+    flash[:message] = "Updated profile!"
+    redirect_to preferences_path
   end
 
   def create # No view associated with it

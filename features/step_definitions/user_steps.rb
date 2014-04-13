@@ -9,13 +9,13 @@ Given /I am logged in as "(.*)" with password "(.*)"$/ do |user, pass|
   fill_in("Username", :with => user)
   fill_in("Password", :with => pass)
   click_link_or_button("Login")
-  @current_user = User.find(:all, :conditions => {:username => user, :password => pass})[0]
+  @current_user_id = User.find(:all, :conditions => {:username => user, :password => pass})[0].id
 end
 
 Then /^my interests should be "(.*?)"$/ do |interests|
-  assert @current_user.interests == interests
+  assert User.find(@current_user_id).interests == interests
 end
 
 Then /^my quotes should be "(.*?)"$/ do |quotes|
-  assert @current_user.quotes == quotes
+  assert User.find(@current_user_id).quotes == quotes
 end

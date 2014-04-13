@@ -1,0 +1,15 @@
+%h1 Profile Preferences
+
+= link_to 'Newsfeed', newsfeed_path
+= link_to 'Profile Page', preferences_path(:userProfile => session[:login_id])
+= link_to 'Search/Add Users', friends_path
+
+= form_tag update_path do
+
+  = label :current_user, :interests, 'Interests'
+  = text_field :current_user, :interests
+  %br
+  = label :current_user, :quotes, 'Quotes'
+  = text_field :current_user, :quotes
+  %br
+  = submit_tag 'Update Profile'
