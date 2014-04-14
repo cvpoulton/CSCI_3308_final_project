@@ -38,6 +38,8 @@ class AccountController < ApplicationController
   end
 
   def preferences
+    @pending_friends = [] # NEED TO DO
+    @friends = [] # NEED TO DO
   end
 
   def update

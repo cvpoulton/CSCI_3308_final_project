@@ -13,3 +13,29 @@
   = text_field :current_user, :quotes
   %br
   = submit_tag 'Update Profile'
+
+%h2 Pending Friends
+
+- if @pending_friends.length() != 0
+  %table#pending_friends
+    %tbody
+      - @pending_friends.each do |pending_friend|
+        %tr
+          %td= link_to "#{pending_friend.first_name} #{pending_friend.last_name}"
+          %td= "Add"
+          %td= "Deny"
+- if @pending_friends.length() == 0
+  No pending friends!
+
+
+%h2 Current Friends
+
+- if @friends.length() != 0
+  %table#friends
+    %tbody
+      - @friends.each do |friend|
+        %tr
+          %td= link_to "#{friend.first_name} #{friend.last_name}"
+          %td= "Unfriend"
+- if @friends.length() == 0
+  No friends!
