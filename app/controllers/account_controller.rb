@@ -30,6 +30,11 @@ class AccountController < ApplicationController
   end
 
   def friends
+    if params.has_key?(:search) # User is searching for last name
+      @matched_users = User.find(:all, :conditions => {:last_name => params[:search][:lastName]}) # Pass view all users with given last name
+    else
+      @matched_users = [] # Don't display anything if nothing was searched
+    end
   end
 
   def preferences

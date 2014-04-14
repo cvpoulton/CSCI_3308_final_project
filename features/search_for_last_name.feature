@@ -18,10 +18,12 @@ Scenario: search by last name - users found
   When I follow "Search/Add Users"
   Then I should be on the friends page
   When I fill in "Last Name" with "Paul"
+  And I press "Search"
   Then I should see "Jean Paul"
 
 Scenario: search by last name - no users found
   When I follow "Search/Add Users"
   Then I should be on the friends page
   When I fill in "Last Name" with "Gavin"
+  And I press "Search"
   Then I should see "No users found"
