@@ -1,17 +1,20 @@
 class ViewingController < ApplicationController
+  before_filter :redirect_if_not_logged_in
+ 
   def newsfeed
-    if not session.has_key?(:login_id) # If not logged in then redirect to login page
-      redirect_to login_path
-    else
-      @current_user = User.find(session[:login_id]) # Set current user for header
-    end
   end
 
   def profile
-    if not session.has_key?(:login_id) # If not logged in then redirect to login page
-      redirect_to login_path
-    else
-      @current_user = User.find(session[:login_id]) # Set current user for header
+num = @current_user.id - int(params[:userProfile])
+  flash[:error] = "#{num== 0}"
+      if @current_user.friendships.include?(User.find_by_id(params[:userProfile])) or @current_user.id == params[:userProfile]
+#flash[:error] = "f"
+      render :template => "viewing/profileFriend"
+    else # Not friends
+#     flash[:error]  = "n"
+      render :template => "viewing/profileNonFriend"
     end
+
   end
+
 end

@@ -7,6 +7,11 @@ CSCI3308FinalProject::Application.routes.draw do
   match '/friends',     to: 'account#friends',     via: 'get'
   match '/preferences', to: 'account#preferences', via: 'get'
   match '/update',      to: 'account#update',      via: 'post'
+  
+  match '/send_request',to: 'account#send_request',     via: 'get'
+  match '/add',         to: 'account#add',         via: 'get'
+  match '/deny',        to: 'account#deny',        via: 'get'
+  
   match '/newsfeed',    to: 'viewing#newsfeed',    via: 'get'
   match '/profile',     to: 'viewing#profile',     via: 'get'
 

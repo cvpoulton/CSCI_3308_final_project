@@ -1,4 +1,4 @@
-%h1 Search/Add Users
+%h1 Friends
 
 = form_tag friends_path, :method => "GET" do
 

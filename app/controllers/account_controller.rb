@@ -68,4 +68,18 @@ class AccountController < ApplicationController
       redirect_to newsfeed_path # Redirect to Newsfeed
     end
   end
+
+def add
+end
+
+  def send_request
+    flash[:message] = "Friend request sent!"
+    ### DO STUFF
+    redirect_to profile_path(:userProfile => @request_user.id)
+  end
+
+
+def deny
+end
+
 end
