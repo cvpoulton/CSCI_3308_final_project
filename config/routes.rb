@@ -11,7 +11,8 @@ CSCI3308FinalProject::Application.routes.draw do
   match '/send_request',to: 'account#send_request',     via: 'get'
   match '/add',         to: 'account#add',         via: 'get'
   match '/deny',        to: 'account#deny',        via: 'get'
-  
+  match '/defriend',    to: 'account#defriend',    via: 'get'
+
   match '/newsfeed',    to: 'viewing#newsfeed',    via: 'get'
   match '/profile',     to: 'viewing#profile',     via: 'get'
 

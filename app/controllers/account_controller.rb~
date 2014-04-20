@@ -112,11 +112,11 @@ class AccountController < ApplicationController
     if pendingFriend.length != 1
       flash[:error] = "Something very wrong! More than one or 0 pending friends found"
       flash[:message] = "#{session[:login_id]} #{params[:add_user]} #{pendingFriend.length}"
+      redirect_to preferences_path
     else
       flash[:message] = "Friend request denied!"
       PendingFriendship.destroy(pendingFriend[0].id)
     end
-    redirect_to preferences_path
   end
 
 end
