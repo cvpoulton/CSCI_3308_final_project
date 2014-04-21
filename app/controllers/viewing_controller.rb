@@ -10,36 +10,20 @@ class ViewingController < ApplicationController
       flash[:error] = "User not found!"
       redirect_to newsfeed_path
     else
-      friends_bool = false
-      @current_user.friendships.each do |friends|
-        if friends.other_user == @profile_user.id
-          friends_bool = true
-        end
-      end
-# WE CAN REFACTOR ALL OF THIS, views and controllers!
-      pending_friends_bool = false
-      @profile_user.pending_friendships.each do |pending_friend|
-        if pending_friend.from_user == @current_user.id
-          pending_friends_bool = true
-        end
-      end
 
-      received_request_bool = false
-      @current_user.pending_friendships.each do |pending_friend|
-        if pending_friend.from_user == @profile_user.id
-          received_request_bool = true
-        end
-      end
+      friends_bool = Friendship.find(:all, :conditions => {:user_id => @current_user.id, :other_user => @profile_user.id}).length == 1
 
       if friends_bool == true or @current_user.id == @profile_user.id 
-        render :template => "viewing/profileFriend"
-      elsif pending_friends_bool
-        render :template => "viewing/profileNonFriendRequested"
-      elsif received_request_bool
-        render :template => "viewing/profileNonFriendReceived"
+	@type = 'friends'
+      elsif PendingFriendship.find(:all, :conditions => {:user_id => @profile_user.id, :from_user => @current_user.id}).length == 1
+        @type = 'requested'
+      elsif PendingFriendship.find(:all, :conditions => {:user_id => @current_user.id, :from_user => @profile_user.id}).length == 1
+	@type = 'received_request'
       else
-        render :template => "viewing/profileNonFriend"
+        @type = 'not_friends'
       end
+
+      render :template => "viewing/profile"
     end
   end
 

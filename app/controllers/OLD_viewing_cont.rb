@@ -10,13 +10,7 @@ class ViewingController < ApplicationController
       flash[:error] = "User not found!"
       redirect_to newsfeed_path
     else
-      friends_bool = false
-      @current_user.friendships.each do |friends|
-        if friends.other_user == @profile_user.id
-          friends_bool = true
-        end
-      end
-
+# WE CAN REFACTOR ALL OF THIS, views and controllers!
       pending_friends_bool = false
       @profile_user.pending_friendships.each do |pending_friend|
         if pending_friend.from_user == @current_user.id
@@ -27,7 +21,7 @@ class ViewingController < ApplicationController
       received_request_bool = false
       @current_user.pending_friendships.each do |pending_friend|
         if pending_friend.from_user == @profile_user.id
-          receieved_request_bool = true
+          received_request_bool = true
         end
       end
 
