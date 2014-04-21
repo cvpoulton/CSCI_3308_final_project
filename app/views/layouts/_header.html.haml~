@@ -1,0 +1,16 @@
+- if flash[:error]
+  #{flash[:error]}
+- if flash[:message]
+  #{flash[:message]}
+- if @current_user != nil
+  #{@current_user.first_name} #{@current_user.last_name} is logged in
+- else
+  No user signed in
+
+
+%br
+
+= link_to 'Newsfeed', newsfeed_path
+= link_to 'Profile Page', profile_path(:userProfile => session[:login_id])
+= link_to 'Profile Preferences', preferences_path
+= link_to 'Search/Add Users', friends_path

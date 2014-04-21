@@ -48,8 +48,6 @@ Scenario: not redirecting if logged in
   When I press "Login"
   When I am on the newsfeed page
   Then I should be on the newsfeed page
-  When I am on the profile page
-  Then I should be on the profile page
   When I am on the preferences page
   Then I should be on the preferences page
   When I am on the friends page

@@ -1,0 +1,8 @@
+%title Profile Page
+%h1 Profile Page
+
+Name: #{@profile_user.first_name} #{@profile_user.last_name}
+
+%br
+
+= link_to 'Send friend request', send_request_path(:request_user => @profile_user.id)
