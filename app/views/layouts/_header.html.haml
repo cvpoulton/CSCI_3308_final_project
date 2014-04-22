@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 - if flash[:error]
   #{flash[:error]}
 - if flash[:message]
@@ -14,20 +13,3 @@
 = link_to 'Profile Page', profile_path(:userProfile => session[:login_id])
 = link_to 'Profile Preferences', preferences_path
 = link_to 'Search/Add Users', friends_path
-=======
-!!! 5
-%html
-	%header .navbar navbar-fixed-top navbar-inverse
-	.navbar-inner
-		.container
-		= link_to "login"
-		= if flash[:error] then "#{flash[:error]}" end 
-		= if flash[:message] then "#{flash[:message]}" end
-		= if @current_user != nil then "#{@current_user.first_name} #{@current_user.last_name} is logged in" else "No user signed in" end 
-			/#%nav
-		%ul 
-		.nav pull-right
-		%li= link_to "Home", '#'
-		%li= link_to "Help", '#'
-		%li= link_to "Sign in", '#'
->>>>>>> Stashed changes
