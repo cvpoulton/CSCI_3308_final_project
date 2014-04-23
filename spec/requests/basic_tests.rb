@@ -5,14 +5,7 @@ require 'spec_helper'
   #   assert true
   # end
 #end
-=begin
-describe "Login" do
-	before(:all) do
-	User.create(:username => 'yo', :password => 'man')
-	user_login('yo', 'man')
-	user_login('chris', 'chris')
-end
-=end
+
 describe "Webpage" do
 	
 	before(:each) do
@@ -23,13 +16,11 @@ describe "Webpage" do
 
 	describe "Newsfeed" do
 
-		
 		it "should have the content 'Newsfeed'" do
 			visit newsfeed_path
 			expect(page).to have_content('Newsfeed')
 		end
 	end
-
 
 	describe "Preferences" do
 		it "should have the content 'Preferences'" do
