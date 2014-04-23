@@ -41,7 +41,7 @@ describe "Webpage" do
 	describe "Profile Page" do
 
 		it "should have the title 'Profile Page'" do
-			visit profile_path(:userProfile => 1)
+			visit profile_path(:profileUser => 1)
 			expect(page).to have_title('Profile Page')
 		end
 	end

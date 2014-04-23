@@ -32,7 +32,7 @@ describe "Webpage" do
 
 	describe "Search/Add Users" do
 		it "should have the content 'Search/Add Users Page'" do
-			visit friends_path
+			visit preferences_path
 			expect(page).to have_content('Search/Add Users Page')
 		end
 	end

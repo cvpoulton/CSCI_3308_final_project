@@ -27,7 +27,7 @@ group :devolopment, :test do
 end
 
 group :test, :devolopment do
-	gem 'cucumber-rails'
+	gem 'cucumber-rails', :require => false
 	gem 'cucumber-rails-training-wheels'
 	gem 'database_cleaner'
 	gem 'capybara'

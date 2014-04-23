@@ -5,4 +5,16 @@ Name: #{@profile_user.first_name} #{@profile_user.last_name}
 
 %br
 
-Friend Request Received!
+- if @type == 'friends'
+  Interests: #{@profile_user.interests}
+  %br
+  Quotes: #{@profile_user.quotes}
+
+- if @type == 'received_request'
+  Friend Request Received!
+
+- if @type == 'requested'
+  Friend Request Sent!
+
+- if @type == 'not_friends'
+  = link_to 'Send friend request', send_request_path(:request_user => @profile_user.id)

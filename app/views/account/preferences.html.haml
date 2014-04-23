@@ -1,41 +1,38 @@
 =provide(:title, 'Profile Preferences')
-!!! 5
-%html
-  %head
-    %h1 Profile Preferences
+%h1 Profile Preferences Page
 
-    = form_tag update_path do
+= form_tag update_path do
 
-      = label :current_user, :interests, 'Interests'
-      = text_field :current_user, :interests
-      %br
-      = label :current_user, :quotes, 'Quotes'
-      = text_field :current_user, :quotes
-      %br
-      = submit_tag 'Update Profile'
+  = label :current_user, :interests, 'Interests'
+  = text_field :current_user, :interests
+  %br
+  = label :current_user, :quotes, 'Quotes'
+  = text_field :current_user, :quotes
+  %br
+  = submit_tag 'Update Profile'
 
-    %h2 Pending Friends
+%h2 Pending Friends
 
-    - if @pending_friends.length() != 0
-      %table#pending_friends
-        %tbody
-          - @pending_friends.each do |pending_friend|
-            %tr
-              %td= link_to "#{pending_friend.first_name} #{pending_friend.last_name}", profile_path(:userProfile => pending_friend.id)
-              %td= link_to "Add", add_path(:add_user => pending_friend.id)
-              %td= link_to "Deny", deny_path(:deny_user => pending_friend.id)
-    - if @pending_friends.length() == 0
-      No pending friends!
+- if @pending_friends.length() != 0
+  %table#pending_friends
+    %tbody
+      - @pending_friends.each do |pending_friend|
+        %tr
+          %td= link_to "#{pending_friend.first_name} #{pending_friend.last_name}", profile_path(:userProfile => pending_friend.id)
+          %td= link_to "Add", add_path(:add_user => pending_friend.id)
+          %td= link_to "Deny", deny_path(:deny_user => pending_friend.id)
+- if @pending_friends.length() == 0
+  No pending friends!
 
 
-    %h2 Current Friends
+%h2 Current Friends
 
-    - if @friends.length() != 0
-      %table#friends
-        %tbody
-          - @friends.each do |friend|
-            %tr
-              %td= link_to "#{friend.first_name} #{friend.last_name}", profile_path(:userProfile => friend.id)
-              %td= link_to "Defriend", defriend_path(:defriend_user => friend.id)
-    - if @friends.length() == 0
-      No friends!
+- if @friends.length() != 0
+  %table#friends
+    %tbody
+      - @friends.each do |friend|
+        %tr
+          %td= link_to "#{friend.first_name} #{friend.last_name}", profile_path(:userProfile => friend.id)
+          %td= link_to "Defriend", defriend_path(:defriend_user => friend.id)
+- if @friends.length() == 0
+  No friends!

@@ -1,5 +1,5 @@
-=provide(:title, 'Create New Account')
-%h1 Create New Account Page
+%title Create New Account
+%h1 Create New Account
 
 = form_tag create_path do
 
