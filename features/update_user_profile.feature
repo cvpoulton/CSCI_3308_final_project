@@ -6,8 +6,8 @@ Feature: update user profile
 
 Background:
   Given the following users exist:
-  | username  | first_name | last_name | password | interests          | quotes     |
-  | cvpoulton | Chris      | Poulton   | nailedit | Food and CSCI 3308 | Nailed it! |
+  | username  | first_name | last_name | password | password_confirmation | interests          | quotes     |
+  | cvpoulton | Chris      | Poulton   | nailedit | nailedit              | Food and CSCI 3308 | Nailed it! |
 
   And I am logged in as "cvpoulton" with password "nailedit"
   And I am on the newsfeed page

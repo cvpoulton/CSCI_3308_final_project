@@ -1,9 +1,12 @@
 - if flash[:error]
   #{flash[:error]}
+  %br
 - if flash[:message]
   #{flash[:message]}
+  %br
 - if @current_user != nil
   #{@current_user.first_name} #{@current_user.last_name} is logged in
+  = link_to 'Logout', logout_path
 - else
   No user signed in
 

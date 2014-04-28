@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base # GitHub Lab test comment (Chris P.)
+class ApplicationController < ActionController::Base
   protect_from_forgery
 
   def redirect_if_not_logged_in

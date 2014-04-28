@@ -20,7 +20,11 @@ class AccountController < ApplicationController
       flash[:error] = "Wrong password!"
       redirect_to login_path
     end
+  end
 
+  def logout
+    session[:login_id] = nil
+    redirect_to login_path
   end
 
   def new
@@ -42,7 +46,6 @@ class AccountController < ApplicationController
     @current_user.pending_friendships.each do |pending_friend|
       @pending_friends.append(User.find_by_id(pending_friend.from_user))
     end
-    @friends = @current_user.friendships
 
     @friends = []
     @current_user.friendships.each do |friend|
@@ -51,46 +54,33 @@ class AccountController < ApplicationController
   end
 
   def update
-    @current_user.interests = params[:current_user][:interests]
-    @current_user.quotes = params[:current_user][:quotes]
-    @current_user.save!
+    @current_user.update_column(:interests, params[:current_user][:interests]) # update_column() doesn't do validation checks
+    @current_user.update_column(:quotes, params[:current_user][:quotes])
     flash[:message] = "Updated profile!"
     redirect_to preferences_path
   end
 
   def create # No view associated with it
-    if User.find(:all, :conditions => {:username => params[:user][:username]}).length != 0 
-      flash[:error] = "Username already taken!"
-      redirect_to new_path # If username already exisits don't let them make the account
-    elsif params[:user][:username] == "" or params[:user][:first_name] == "" or params[:user][:last_name] == "" or params[:user][:password] == "" or params[:confirm][:passwordConfirm] == ""
-      flash[:error] = "Must specify username, first and last name, and password along with confirmation!"
-      redirect_to new_path
-    elsif params[:user][:password] != params[:confirm][:passwordConfirm]
-      flash[:error] = "Password confirmation does not match password!"
-      redirect_to new_path
-    else
-      @current_user = User.create!(params[:user]) # Create new user
-      session[:login_id] = @current_user.id
-      @current_user.walldate = Time.now
-      @current_user.save!
-      redirect_to newsfeed_path # Redirect to Newsfeed
-    end
+      @new_user = User.create(params[:user]) # Create new user
+      if @new_user.valid?
+        @current_user = @new_user
+        session[:login_id] = @current_user.id
+        @current_user.walldate = Time.now
+        @current_user.save!
+        redirect_to newsfeed_path # Redirect to Newsfeed
+      else
+        flash[:error] = @new_user.errors.full_messages()[0]
+        redirect_to new_path # Redirect to make new account
+      end
   end
 
   def add
     pendingFriend = PendingFriendship.find(:all, :conditions => {:user_id => session[:login_id], :from_user => params[:add_user]})
-
-    if pendingFriend.length != 1
-      flash[:message] = params[:add_user]
-      flash[:error] = "Something very wrong! More than one or 0 pending friends found"
-      redirect_to preferences_path
-    else
-      PendingFriendship.destroy(pendingFriend[0].id)
-      Friendship.create!(:user_id => session[:login_id], :other_user => params[:add_user])
-      Friendship.create!(:other_user => session[:login_id], :user_id => params[:add_user])
-      flash[:message] = "Friend added!"
-      redirect_to preferences_path
-    end
+    PendingFriendship.destroy(pendingFriend[0].id)
+    Friendship.create!(:user_id => session[:login_id], :other_user => params[:add_user])
+    Friendship.create!(:other_user => session[:login_id], :user_id => params[:add_user])
+    flash[:message] = "Friend added!"
+    redirect_to preferences_path
   end
 
   def defriend
@@ -109,13 +99,8 @@ class AccountController < ApplicationController
 
   def deny
     pendingFriend = PendingFriendship.find(:all, :conditions => {:user_id => session[:login_id], :from_user => params[:deny_user]})
-    if pendingFriend.length != 1
-      flash[:error] = "Something very wrong! More than one or 0 pending friends found"
-      flash[:message] = "#{session[:login_id]} #{params[:add_user]} #{pendingFriend.length}"
-    else
-      flash[:message] = "Friend request denied!"
-      PendingFriendship.destroy(pendingFriend[0].id)
-    end
+    flash[:message] = "Friend request from denied!"
+    PendingFriendship.destroy(pendingFriend[0].id)
     redirect_to preferences_path
   end
 
