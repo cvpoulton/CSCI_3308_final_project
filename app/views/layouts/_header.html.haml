@@ -1,18 +1,30 @@
-- if flash[:error]
-  #{flash[:error]}
-  %br
-- if flash[:message]
-  #{flash[:message]}
-  %br
-- if @current_user != nil
-  #{@current_user.first_name} #{@current_user.last_name} is logged in
-  = link_to 'Logout', logout_path
-- else
-  No user signed in
+%header{:class => "navbar navbar-fixed-top navbar-inverse"}
+  %div{:class => "navbar-inner"}
+    %div{:class => "container"}
+      %nav
+        - if @current_user != nil
+          %ul{:class => "nav pull-left"}
+            %li{:id => "status"}
+              #{@current_user.first_name} #{@current_user.last_name} is logged in
+          %ul{:class => "nav pull-middle"}
+            %li
+              = link_to 'Logout', logout_path
+        
+        - else
+          %ul{:class => "nav pull-left"}
+            %li{:id => "status"}
+              No user signed in
+          %ul{:class => "nav pull-middle"}
+            %li
+              = link_to 'Login', login_path
 
-%br
+        %ul{:class => "nav pull-right"}
+          %li
+            = link_to 'Newsfeed', newsfeed_path
+          %li
+            = link_to 'Profile Page', profile_path(:userProfile => session[:login_id])
+          %li
+            = link_to 'Profile Preferences', preferences_path
+          %li
+            = link_to 'Search/Add Users', friends_path
 
-= link_to 'Newsfeed', newsfeed_path
-= link_to 'Profile Page', profile_path(:userProfile => session[:login_id])
-= link_to 'Profile Preferences', preferences_path
-= link_to 'Search/Add Users', friends_path

@@ -8,7 +8,7 @@ Given /I am logged in as "(.*)" with password "(.*)"$/ do |user, pass|
   visit(login_url)
   fill_in("Username", :with => user)
   fill_in("Password", :with => pass)
-  click_link_or_button("Login")
+  click_button("Login")
   @current_user_id = User.find(:all, :conditions => {:username => user, :password => pass})[0].id
 end
 
