@@ -106,8 +106,7 @@ class AccountController < ApplicationController
 
   def clear_wall
     @current_user.update_column(:walldate, Time.now)
-    flash[:message] = "Wall cleared"
-
+    flash[:message] = "Wall cleared!"
     redirect_to preferences_path
   end
 

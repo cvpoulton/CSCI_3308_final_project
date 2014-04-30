@@ -1,33 +1,32 @@
 =provide(:title, 'Profile Page')
 
 %h1 Profile Page
-%br
 
-%h3 Name: #{@profile_user.first_name} #{@profile_user.last_name}
+%h3= "Name: #{@profile_user.first_name} #{@profile_user.last_name}"
 
-%h4
-  - if @type == 'friends'
-    Interests: #{@profile_user.interests}
-    %br
-    %br
-    Quotes: #{@profile_user.quotes}
-    = form_tag post_path(:post_user=>@profile_user.id) do
-      = label :post, :message, 'Message'
-      = text_field :post, :message
-      = submit_tag 'Post Message', :class => "btn btn-info"
+- if @type == 'friends'
+  %h4 Interests: #{@profile_user.interests}
+  %h4 Quotes: #{@profile_user.quotes}
+  %br
+  %h3 Wall
+  = form_tag post_path(:post_user=>@profile_user.id) do
+    = text_field :post, :message, :class => "span5"
+    = submit_tag 'Post to wall', :class => "btn btn-info"
 
-    %table#matched_users
-      %tbody
-        - @posts.each do |post|
-          %tr
-            %td
-              %h4= post.message
+  %table#matched_users
+    %tbody
+      - @posts.each do |post|
+        %tr
+          %td
+            %h4= link_to "#{User.find_by_id(post.from_user).first_name} #{User.find_by_id(post.from_user).last_name}", profile_path(:userProfile => post.user_id)
+            %h5= post.message
+            %br
 
-  - if @type == 'received_request'
-    Friend Request Received!
+- if @type == 'received_request'
+  %h4= "Friend Request Received!"
 
-  - if @type == 'requested'
-    Friend Request Sent!
+- if @type == 'requested'
+  %h4= "Friend Request Sent!"
 
-  - if @type == 'not_friends'
-    = link_to 'Send friend request', send_request_path(:request_user => @profile_user.id)
+- if @type == 'not_friends'
+  %h4= link_to 'Send friend request', send_request_path(:request_user => @profile_user.id)

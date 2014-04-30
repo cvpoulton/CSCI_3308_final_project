@@ -1,15 +1,18 @@
 class ViewingController < ApplicationController
   before_filter :redirect_if_not_logged_in
- 
+
   def post
+    if params[:post][:message] =~ /\S+/ # Make sure we don't get messages with just whitespace
       @new_post = Post.new
-      @new_post.from_user=session[:login_id]
-      @new_post.message=params[:post][:message]
-      @new_post.user_id=params[:post_user]
-      @new_post.time=Time.now
+      @new_post.from_user = session[:login_id]
+      @new_post.message = params[:post][:message]
+      @new_post.user_id = params[:post_user]
+      @new_post.time = Time.now
       @new_post.save
-      redirect_to profile_path(:userProfile=>params[:post_user])
+    end
+    redirect_to profile_path(:userProfile=>params[:post_user])
   end
+
   def newsfeed
   end
 
@@ -31,10 +34,13 @@ class ViewingController < ApplicationController
              @posts.append(post)
           end
         end
+
       elsif PendingFriendship.find(:all, :conditions => {:user_id => @profile_user.id, :from_user => @current_user.id}).length == 1
         @type = 'requested'
+
       elsif PendingFriendship.find(:all, :conditions => {:user_id => @current_user.id, :from_user => @profile_user.id}).length == 1
 	      @type = 'received_request'
+
       else
         @type = 'not_friends'
       end
@@ -42,6 +48,5 @@ class ViewingController < ApplicationController
       render :template => "viewing/profile"
     end
   end
-
 
 end

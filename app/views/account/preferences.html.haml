@@ -11,8 +11,8 @@
   %br
   = submit_tag 'Update Profile', :class => "btn btn-info"
 
-
-= link_to 'Clear Wall', clear_wall_path
+%br
+%h4= link_to 'Clear Wall', clear_wall_path
 %br
 %h2 Pending Friends
 - if @pending_friends.length() != 0
