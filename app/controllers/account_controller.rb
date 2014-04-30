@@ -1,5 +1,5 @@
 class AccountController < ApplicationController
-  before_filter :redirect_if_not_logged_in, only: [:friends, :preferences, :update, :send_request, :add, :deny]
+  before_filter :redirect_if_not_logged_in, only: [:friends, :preferences, :update, :send_request, :add, :deny, :clear_wall]
 
   def login
     if session.has_key?(:login_id) # If logged in already
@@ -101,6 +101,13 @@ class AccountController < ApplicationController
     pendingFriend = PendingFriendship.find(:all, :conditions => {:user_id => session[:login_id], :from_user => params[:deny_user]})
     flash[:message] = "Friend request from #{User.find_by_id(params[:deny_user]).first_name} denied!"
     PendingFriendship.destroy(pendingFriend[0].id)
+    redirect_to preferences_path
+  end
+
+  def clear_wall
+    @current_user.update_column(:walldate, Time.now)
+    flash[:message] = "Wall cleared"
+
     redirect_to preferences_path
   end
 

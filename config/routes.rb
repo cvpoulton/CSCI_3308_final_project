@@ -17,7 +17,8 @@ CSCI3308FinalProject::Application.routes.draw do
 
   match '/newsfeed',    to: 'viewing#newsfeed',    via: 'get'
   match '/profile',     to: 'viewing#profile',     via: 'get'
-
+  match '/post',        to: 'viewing#post',        via: 'post'
+  match '/clear_wall',  to: 'account#clear_wall',  via: 'get'
   #get "account/login" # Form to login
   #post "account/login_check" # Actually logs in
 
