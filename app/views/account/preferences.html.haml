@@ -9,30 +9,36 @@
   = label :current_user, :quotes, 'Quotes'
   = text_field :current_user, :quotes
   %br
-  = submit_tag 'Update Profile'
+  = submit_tag 'Update Profile', :class => "btn btn-info"
 
+%br
 %h2 Pending Friends
-
 - if @pending_friends.length() != 0
-  %table#pending_friends
+  %table
     %tbody
       - @pending_friends.each do |pending_friend|
         %tr
-          %td= link_to "#{pending_friend.first_name} #{pending_friend.last_name}", profile_path(:userProfile => pending_friend.id)
-          %td= link_to "Add", add_path(:add_user => pending_friend.id)
-          %td= link_to "Deny", deny_path(:deny_user => pending_friend.id)
-- if @pending_friends.length() == 0
+          %td
+            %h4= link_to "#{pending_friend.first_name} #{pending_friend.last_name}", profile_path(:userProfile => pending_friend.id)
+          %td#extraRight
+            %h4= link_to "Add", add_path(:add_user => pending_friend.id)
+          %td#extraRight2
+            %h4= link_to "Deny", deny_path(:deny_user => pending_friend.id)
+- else
   No pending friends!
+  %br
+  %br
 
 
 %h2 Current Friends
-
 - if @friends.length() != 0
-  %table#friends
+  %table
     %tbody
       - @friends.each do |friend|
         %tr
-          %td= link_to "#{friend.first_name} #{friend.last_name}", profile_path(:userProfile => friend.id)
-          %td= link_to "Defriend", defriend_path(:defriend_user => friend.id)
-- if @friends.length() == 0
+          %td
+            %h4= link_to "#{friend.first_name} #{friend.last_name}", profile_path(:userProfile => friend.id)
+          %td#extraRight
+            %h4= link_to "Defriend", defriend_path(:defriend_user => friend.id)
+- else
   No friends!

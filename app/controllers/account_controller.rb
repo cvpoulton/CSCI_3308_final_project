@@ -79,19 +79,19 @@ class AccountController < ApplicationController
     PendingFriendship.destroy(pendingFriend[0].id)
     Friendship.create!(:user_id => session[:login_id], :other_user => params[:add_user])
     Friendship.create!(:other_user => session[:login_id], :user_id => params[:add_user])
-    flash[:message] = "Friend added!"
+    flash[:message] = "#{User.find_by_id(params[:add_user]).first_name} added as friend!"
     redirect_to preferences_path
   end
 
   def defriend
     Friendship.destroy(Friendship.find(:first, :conditions => {:user_id => session[:login_id],     :other_user => params[:defriend_user]}).id)
     Friendship.destroy(Friendship.find(:first, :conditions => {:user_id => params[:defriend_user], :other_user => session[:login_id]}).id)
-    flash[:message] = "Defriended!"
+    flash[:message] = "Defriended #{User.find_by_id(params[:defriend_user]).first_name}!"
     redirect_to preferences_path
   end
 
   def send_request
-    flash[:message] = "Friend request sent!"
+    flash[:message] = "Friend request sent to #{User.find_by_id(params[:request_user]).first_name}!"
     PendingFriendship.create!(:user_id => params[:request_user], :from_user => session[:login_id])
     redirect_to profile_path(:userProfile => params[:request_user])
   end
@@ -99,7 +99,7 @@ class AccountController < ApplicationController
 
   def deny
     pendingFriend = PendingFriendship.find(:all, :conditions => {:user_id => session[:login_id], :from_user => params[:deny_user]})
-    flash[:message] = "Friend request from denied!"
+    flash[:message] = "Friend request from #{User.find_by_id(params[:deny_user]).first_name} denied!"
     PendingFriendship.destroy(pendingFriend[0].id)
     redirect_to preferences_path
   end

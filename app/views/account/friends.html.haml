@@ -7,16 +7,17 @@
   = label :search, :lastName, 'Last Name'
   = text_field :search, :lastName
   %br
-  = submit_tag 'Search'
+  = submit_tag 'Search', :class => "btn btn-info"
 
 - if params.has_key?(:search)
   Searching for last name: #{params[:search][:lastName]}
   %br
   - if @matched_users.length == 0
-    No users found!
+    %h4 No users found!
 
 %table#matched_users
   %tbody
     - @matched_users.each do |matched_user|
       %tr
-        %td= link_to "#{matched_user.first_name} #{matched_user.last_name}", profile_path(:userProfile => matched_user.id)
+        %td
+          %h4= link_to "#{matched_user.first_name} #{matched_user.last_name}", profile_path(:userProfile => matched_user.id)
