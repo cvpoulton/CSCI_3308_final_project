@@ -44,16 +44,16 @@ class AccountController < ApplicationController
   def preferences
     @pending_friends = []
     @current_user.pending_friendships.each do |pending_friend|
-      @pending_friends.append(User.find_by_id(pending_friend.from_user))
+      @pending_friends.append(User.find_by_id(pending_friend.from_user)) # Make pending friend list for view
     end
 
     @friends = []
     @current_user.friendships.each do |friend|
-      @friends.append(User.find_by_id(friend.other_user))
+      @friends.append(User.find_by_id(friend.other_user)) # Make friend list for view
     end
   end
 
-  def update
+  def update # Update profile
     @current_user.update_column(:interests, params[:current_user][:interests]) # update_column() doesn't do validation checks
     @current_user.update_column(:quotes, params[:current_user][:quotes])
     flash[:message] = "Updated profile!"
@@ -68,8 +68,8 @@ class AccountController < ApplicationController
         @current_user.walldate = Time.now
         @current_user.save!
         redirect_to newsfeed_path # Redirect to Newsfeed
-      else
-        flash[:error] = @new_user.errors.full_messages()[0]
+      else # An error was found
+        flash[:error] = @new_user.errors.full_messages()[0] # Display error to user
         redirect_to new_path # Redirect to make new account
       end
   end
@@ -91,21 +91,21 @@ class AccountController < ApplicationController
   end
 
   def send_request
-    flash[:message] = "Friend request sent to #{User.find_by_id(params[:request_user]).first_name}!"
     PendingFriendship.create!(:user_id => params[:request_user], :from_user => session[:login_id])
+    flash[:message] = "Friend request sent to #{User.find_by_id(params[:request_user]).first_name}!"
     redirect_to profile_path(:userProfile => params[:request_user])
   end
 
 
   def deny
     pendingFriend = PendingFriendship.find(:all, :conditions => {:user_id => session[:login_id], :from_user => params[:deny_user]})
-    flash[:message] = "Friend request from #{User.find_by_id(params[:deny_user]).first_name} denied!"
     PendingFriendship.destroy(pendingFriend[0].id)
+    flash[:message] = "Friend request from #{User.find_by_id(params[:deny_user]).first_name} denied!"
     redirect_to preferences_path
   end
 
   def clear_wall
-    @current_user.update_column(:walldate, Time.now)
+    @current_user.update_column(:walldate, Time.now) # We only display posts with create_time > walltime so this clears the wall
     flash[:message] = "Wall cleared!"
     redirect_to preferences_path
   end

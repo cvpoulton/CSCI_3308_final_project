@@ -25,21 +25,21 @@ class ViewingController < ApplicationController
 
       friends_bool = Friendship.find(:all, :conditions => {:user_id => @current_user.id, :other_user => @profile_user.id}).length == 1
 
-      if friends_bool == true or @current_user.id == @profile_user.id 
+      if friends_bool == true or @current_user.id == @profile_user.id # If friends or on own profile
 	      @type = 'friends'
         @posts_raw = User.find_by_id(params[:userProfile]).posts.reverse
         @posts = []
         @posts_raw.each do |post|
           if User.find_by_id(session[:login_id]).walldate < post.time
-             @posts.append(post)
+             @posts.append(post) # Make list of displayed posts that were created after 'walldate'
           end
         end
 
       elsif PendingFriendship.find(:all, :conditions => {:user_id => @profile_user.id, :from_user => @current_user.id}).length == 1
-        @type = 'requested'
+        @type = 'requested' # If we have sent them a friend request
 
       elsif PendingFriendship.find(:all, :conditions => {:user_id => @current_user.id, :from_user => @profile_user.id}).length == 1
-	      @type = 'received_request'
+	      @type = 'received_request' # If we have receieved a friend request from them
 
       else
         @type = 'not_friends'
