@@ -6,9 +6,9 @@ Feature: search for last name
 
 Background:
   Given the following users exist:
-  | username  | first_name | last_name | password  | interests          | quotes      |
-  | cvpoulton | Chris      | Poulton   | nailedit  | Food and CSCI 3308 | Nailed it!  |
-  | jp        | Jean       | Paul      | killingit | Being really cool  | Killing it! |
+  | username  | first_name | last_name | password  | password_confirmation | interests          | quotes      |
+  | cvpoulton | Chris      | Poulton   | nailedit  | nailedit              | Food and CSCI 3308 | Nailed it!  |
+  | jp        | Jean       | Paul      | killingit | killingit             | Being really cool  | Killing it! |
 
 
   And I am logged in as "cvpoulton" with password "nailedit"
