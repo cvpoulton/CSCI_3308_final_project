@@ -1,0 +1,28 @@
+%table#matched_users
+  %tbody
+    - @posts.each do |post|
+      %tr
+        %td
+          %h4
+            - if post.from_user == post.user_id
+              ="Status of "
+              =link_to("#{User.find_by_id(post.user_id).first_name} #{User.find_by_id(post.user_id).last_name}", profile_path(:userProfile => post.user_id)) 
+ 
+            - else
+              =link_to("#{User.find_by_id(post.from_user).first_name} #{User.find_by_id(post.from_user).last_name}", profile_path(:userProfile => post.from_user)) 
+              ="to "
+              =link_to("#{User.find_by_id(post.user_id).first_name} #{User.find_by_id(post.user_id).last_name}", profile_path(:userProfile => post.user_id)) 
+
+          %h5= post.message
+          - if (Time.now-post.time)/3600 > 2
+            = "Posted #{((Time.now - post.time)/3600).to_int} hours ago" 
+          - elsif (Time.now-post.time)/3600 > 1
+            = "Posted #{((Time.now - post.time)/3600).to_int} hour ago" 
+          - elsif (Time.now-post.time)/60 > 2
+            = "Posted #{((Time.now - post.time)/60).to_int} minutes ago" 
+          - elsif (Time.now-post.time)/60 > 1
+            = "Posted #{((Time.now - post.time)/60).to_int} minute ago" 
+          - else
+            = "Posted just now"
+          %br
+          %br

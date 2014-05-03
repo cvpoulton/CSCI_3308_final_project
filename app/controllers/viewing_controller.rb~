@@ -20,10 +20,10 @@ class ViewingController < ApplicationController
   def newsfeed
     @posts = @current_user.posts # Get current user's posts
     @current_user.friendships.each do |friend|
-      @posts = @posts + User.find_by_id(friend.other_user).posts # Add posts of friends
+      @posts = @posts + User.find_by_id(friend.other_user).posts
     end
-    @posts.sort! { |x,y| if x.time > y.time then -1 else 1 end} # Sort posts by time
-    @posts = @posts[0..24] # Only show first 25 posts
+    @posts.sort! { |x,y| if x.time > y.time then -1 else 1 end}
+    @posts = @posts[0..50]
   end
 
   def profile

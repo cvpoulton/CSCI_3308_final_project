@@ -11,16 +11,9 @@
   %h3 Wall
   = form_tag post_path(:post_user=>@profile_user.id) do
     = text_field :post, :message, :class => "span5"
-    = submit_tag 'Post to wall', :class => "btn btn-info"
+    = submit_tag "Post #{if @profile_user.id == @current_user.id then 'status' else 'to wall' end}", :class => "btn btn-info"
 
-  %table#matched_users
-    %tbody
-      - @posts.each do |post|
-        %tr
-          %td
-            %h4= link_to "#{User.find_by_id(post.from_user).first_name} #{User.find_by_id(post.from_user).last_name}", profile_path(:userProfile => post.user_id)
-            %h5= post.message
-            %br
+  = render 'viewing/postlist'
 
 - if @type == 'received_request'
   %h4= "Friend Request Received!"

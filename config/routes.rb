@@ -10,10 +10,10 @@ CSCI3308FinalProject::Application.routes.draw do
 
   match '/logout',      to: 'account#logout',      via: 'get'
 
-  match '/send_request',to: 'account#send_request',via: 'get'
-  match '/add',         to: 'account#add',         via: 'get'
-  match '/deny',        to: 'account#deny',        via: 'get'
-  match '/defriend',    to: 'account#defriend',    via: 'get'
+  match '/send_request',to: 'friend#send_request',via: 'get'
+  match '/add',         to: 'friend#add',         via: 'get'
+  match '/deny',        to: 'friend#deny',        via: 'get'
+  match '/defriend',    to: 'friend#defriend',    via: 'get'
 
   match '/newsfeed',    to: 'viewing#newsfeed',    via: 'get'
   match '/profile',     to: 'viewing#profile',     via: 'get'
