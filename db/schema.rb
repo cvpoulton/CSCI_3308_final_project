@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140405215606) do
+ActiveRecord::Schema.define(:version => 20140504205044) do
 
   create_table "friendships", :force => true do |t|
     t.integer  "user_id"
@@ -31,7 +31,6 @@ ActiveRecord::Schema.define(:version => 20140405215606) do
     t.integer  "user_id"
     t.integer  "from_user"
     t.text     "message"
-    t.datetime "time"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

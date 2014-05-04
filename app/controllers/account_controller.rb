@@ -54,8 +54,9 @@ class AccountController < ApplicationController
   end
 
   def update # Update profile
-    @current_user.update_column(:interests, params[:current_user][:interests]) # update_column() doesn't do validation checks
-    @current_user.update_column(:quotes, params[:current_user][:quotes])
+    @current_user.interests = params[:current_user][:interests] 
+    @current_user.quotes = params[:current_user][:quotes]
+    @current_user.save
     flash[:message] = "Updated profile!"
     redirect_to preferences_path
   end
@@ -73,7 +74,8 @@ class AccountController < ApplicationController
   end
 
   def clear_wall
-    @current_user.update_column(:walldate, Time.now) # We only display posts with create_time > walltime so this clears the wall
+    @current_user.walldate = Time.now # we only show posts with created_at > walldate so this clears the wall
+    @current_user.save
     flash[:message] = "Wall cleared!"
     redirect_to preferences_path
   end
