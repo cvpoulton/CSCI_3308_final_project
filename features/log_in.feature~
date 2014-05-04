@@ -6,8 +6,8 @@ Feature: logging in
 
 Background: 
   Given the following users exist:
-  | username | first_name | last_name | password  |
-  | man      | The        | Man       | rothchild |
+  | username | first_name | last_name | password  | password_confirmation |
+  | man      | The        | Man       | rothchild | rothchild             |
 
   And I am on the SocialNetwork home page
 

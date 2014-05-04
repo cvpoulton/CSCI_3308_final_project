@@ -28,5 +28,6 @@ The project is to make a social networking site like facebook. Users create an a
 | newsfeed | Viewing | Page that contains newsfeed |
 | profile | Viewing  | Page to look at user profile |
 | _header | Application | Partial that is the header of all views |
-| _message | Application | Partial that displays messages in the flash, used in all views |
-| _postlist | Viewing | Partial that displays lists of posts, used in newsfeed and profile |
+| _message | Application | Partial that displays messages in the flash, used in all views|
+| _postlist | Viewing | Partial that displays lists of posts, used in newsfeed and profile
+

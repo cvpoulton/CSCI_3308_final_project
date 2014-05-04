@@ -3,6 +3,7 @@
 %h1 Newsfeed Page
 
 = form_tag post_path({:post_user=>@current_user.id, :from_newsfeed => true}) do
+  = label :post, :message, "Status"
   = text_field :post, :message, :class => "span5"
   = submit_tag "Post status", :class => "btn btn-info"
 
