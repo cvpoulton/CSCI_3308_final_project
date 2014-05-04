@@ -24,6 +24,7 @@ group :test, :development do
 	gem 'launchy'
   gem 'sqlite3'
   gem 'rspec-rails', '2.13.1'
+  gem 'factory_girl_rails'
 end
 
 group :production do
