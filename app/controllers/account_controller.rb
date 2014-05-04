@@ -61,12 +61,10 @@ class AccountController < ApplicationController
   end
 
   def create # No view associated with it
-      @new_user = User.create(params[:user]) # Create new user
+      @new_user = User.create(params[:user].merge({:walldate => Time.now})) # Create new user
       if @new_user.valid?
         @current_user = @new_user
         session[:login_id] = @current_user.id
-        @current_user.walldate = Time.now
-        @current_user.save!
         redirect_to newsfeed_path # Redirect to Newsfeed
       else # An error was found
         flash[:error] = @new_user.errors.full_messages()[0] # Display error to user

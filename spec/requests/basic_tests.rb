@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Webpage" do
 	
 	before(:each) do
-			User.create(:username => 'yo', :password => 'man', :password_confirmation => 'man', :first_name => 'The', :last_name => 'Man')
+			User.create(:username => 'yo', :password => 'man', :password_confirmation => 'man', :first_name => 'The', :last_name => 'Man', :walldate => Time.now)
 			user_login('yo', 'man')
 	end
 

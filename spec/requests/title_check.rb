@@ -4,7 +4,7 @@ require 'spec_helper'
 describe "Webpage" do
 	
 	before(:each) do
-			User.create(:username => 'yo', :password => 'man')
+			User.create(:username => 'yo', :password => 'man', :password_confirmation => 'man', :first_name => 'Chris', :last_name => 'Poulton', :walldate => Time.now)
 			user_login('yo', 'man')
 	end
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe "Profile Info" do
 
 	before(:each) do
-		User.create!(:username => 'JonnyBoi', :password => 'passwerd', :first_name => 'Jonny', :last_name => 'Boi', :interests => "RoR", :quotes => "Lud me some Rub")
+		User.create!(:username => 'JonnyBoi', :password => 'passwerd', :password_confirmation => 'passwerd', :first_name => 'Jonny', :last_name => 'Boi', :interests => "RoR", :quotes => "Lud me some Rub", :walldate => Time.now)
 	end
 	
 	describe "Profile Information on Profile Page" do
