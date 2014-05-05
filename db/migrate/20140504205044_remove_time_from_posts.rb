@@ -1,5 +1,5 @@
 class RemoveTimeFromPosts < ActiveRecord::Migration
   def change
-    remove_column :posts, :time, :datetime
+    remove_column :posts, :time
   end
 end
