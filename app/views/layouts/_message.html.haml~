@@ -1,7 +1,0 @@
-- if flash[:error]
-  %div{:id => "error"}
-    #{flash[:error]}
-
-- if flash[:message]
-  %div{:id => "message"}
-  #{flash[:message]}
