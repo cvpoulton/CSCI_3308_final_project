@@ -2,8 +2,10 @@ CSCI3308FinalProject::Application.routes.draw do
   root :to => 'account#login'
   match '/login',       to: 'account#login',       via: 'get'
   match '/login_check', to: 'account#login_check', via: 'post'
+
   match '/new',         to: 'account#new',         via: 'get'
   match '/create',      to: 'account#create',      via: 'post'
+
   match '/friends',     to: 'account#friends',     via: 'get'
   match '/preferences', to: 'account#preferences', via: 'get'
   match '/update',      to: 'account#update',      via: 'post'

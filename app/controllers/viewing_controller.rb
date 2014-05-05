@@ -1,7 +1,7 @@
 class ViewingController < ApplicationController
   before_filter :redirect_if_not_logged_in
 
-  def post
+  def post # Post to someone's wall (could be your own!)
     if params[:post][:message] =~ /\S+/ # Make sure we don't get messages with just whitespace
       @new_post = Post.new
       @new_post.from_user = session[:login_id]
@@ -9,15 +9,15 @@ class ViewingController < ApplicationController
       @new_post.user_id = params[:post_user]
       @new_post.save
     end
-    if params[:from_newsfeed] == "true"
+    if params[:from_newsfeed] == "true" # If we posted a status from the newsfeed page then redirect there
       redirect_to newsfeed_path
-    else
+    else # We posted on a wall
       redirect_to profile_path(:userProfile=>params[:post_user])
     end
   end
 
   def newsfeed
-    @posts = @current_user.posts # Get current user's posts
+    @posts = @current_user.posts # Get logged in user's posts
     @current_user.friendships.each do |friend|
       @posts = @posts + User.find_by_id(friend.other_user).posts # Add posts of friends
     end
@@ -32,7 +32,7 @@ class ViewingController < ApplicationController
       redirect_to newsfeed_path
     else
 
-      friends_bool = Friendship.find(:all, :conditions => {:user_id => @current_user.id, :other_user => @profile_user.id}).length == 1
+      friends_bool = Friendship.find(:all, :conditions => {:user_id => @current_user.id, :other_user => @profile_user.id}).length == 1 # Boolean if we are friends or not
 
       if friends_bool == true or @current_user.id == @profile_user.id # If friends or on own profile
 	      @type = 'friends'

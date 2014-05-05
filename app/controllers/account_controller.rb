@@ -9,7 +9,7 @@ class AccountController < ApplicationController
 
   def login_check #Check if supplied data (from params) is actually a username/password combo
     @potential_users = User.find(:all, :conditions => {:username => params[:login][:username]})
-    if @potential_users.length != 1 # No or more than one user found
+    if @potential_users.length != 1 # No user found
       flash[:error] = "Username not found!"
       redirect_to login_path
     elsif @potential_users[0].password == params[:login][:password] # Only one user found and it was the right password
@@ -23,11 +23,11 @@ class AccountController < ApplicationController
   end
 
   def logout
-    session[:login_id] = nil
+    session[:login_id] = nil # Clear session variable to logout
     redirect_to login_path
   end
 
-  def new
+  def new # Page with form to create a new user
     if session.has_key?(:login_id) # If logged in already
       @current_user = User.find(session[:login_id]) # Set current user for header
     end
@@ -61,7 +61,7 @@ class AccountController < ApplicationController
     redirect_to preferences_path
   end
 
-  def create # No view associated with it
+  def create # Creates a new user, no view associated with it
       @new_user = User.create(params[:user].merge({:walldate => Time.now})) # Create new user
       if @new_user.valid?
         @current_user = @new_user
