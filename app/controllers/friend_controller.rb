@@ -4,14 +4,14 @@ class FriendController < ApplicationController
   def add
     pendingFriend = PendingFriendship.find(:all, :conditions => {:user_id => session[:login_id], :from_user => params[:add_user]})
     PendingFriendship.destroy(pendingFriend[0].id)
-    Friendship.create!(:user_id => session[:login_id], :other_user => params[:add_user])
+    Friendship.create!(:user_id => session[:login_id], :other_user => params[:add_user]) # Make sure to create two entries!
     Friendship.create!(:other_user => session[:login_id], :user_id => params[:add_user])
     flash[:message] = "#{User.find_by_id(params[:add_user]).first_name} added as friend!"
     redirect_to preferences_path
   end
 
   def defriend
-    Friendship.destroy(Friendship.find(:first, :conditions => {:user_id => session[:login_id],     :other_user => params[:defriend_user]}).id)
+    Friendship.destroy(Friendship.find(:first, :conditions => {:user_id => session[:login_id],     :other_user => params[:defriend_user]}).id) # Make sure to remove two entries!
     Friendship.destroy(Friendship.find(:first, :conditions => {:user_id => params[:defriend_user], :other_user => session[:login_id]}).id)
     flash[:message] = "Defriended #{User.find_by_id(params[:defriend_user]).first_name}!"
     redirect_to preferences_path

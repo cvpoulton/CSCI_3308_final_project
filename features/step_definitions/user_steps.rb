@@ -21,9 +21,7 @@ end
 
 Given /the following posts exist/ do |posts_table|
   posts_table.hashes.each do |post|
-    new_post = Post.new(post)
-    new_post.time = Time.now
-    new_post.save!
+    new_post = Post.create!(post)
   end
 end
 

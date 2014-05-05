@@ -4,8 +4,8 @@ require 'spec_helper'
 describe "Webpage" do
 	
 	before(:each) do
-			User.create(:username => 'yo', :password => 'man')
-			user_login('yo', 'man')
+			@user = FactoryGirl.create(:user, username:'yo', password: 'man', password_confirmation: 'man', first_name: 'Chris', last_name: 'Poulton', walldate: Time.now)
+			user_login("#{@user.username}", "#{@user.password}")
 	end
 
 	describe "Newsfeed Title" do

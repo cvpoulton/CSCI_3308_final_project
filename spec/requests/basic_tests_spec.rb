@@ -1,12 +1,13 @@
 require 'spec_helper'
 
 describe "Webpage" do
-	
+
 	before(:each) do
-			User.create(:username => 'yo', :password => 'man')
-			user_login('yo', 'man')
+			user = FactoryGirl.create(:user)
+			user_login(user.username, user.password)
 	end
 
+	
 	describe "Newsfeed" do
 
 		it "should have the content 'Newsfeed Page'" do
@@ -14,7 +15,7 @@ describe "Webpage" do
 			expect(page).to have_content('Newsfeed Page')
 		end
 	end
-
+	
 	describe "Login" do
 
 		it "should have the content 'Login Page'" do
@@ -32,7 +33,7 @@ describe "Webpage" do
 
 	describe "Search/Add Users" do
 		it "should have the content 'Search/Add Users Page'" do
-			visit preferences_path
+			visit friends_path
 			expect(page).to have_content('Search/Add Users Page')
 		end
 	end

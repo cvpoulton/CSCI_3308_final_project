@@ -7,7 +7,6 @@ class ViewingController < ApplicationController
       @new_post.from_user = session[:login_id]
       @new_post.message = params[:post][:message]
       @new_post.user_id = params[:post_user]
-      @new_post.time = Time.now
       @new_post.save
     end
     if params[:from_newsfeed] == "true"
@@ -22,7 +21,7 @@ class ViewingController < ApplicationController
     @current_user.friendships.each do |friend|
       @posts = @posts + User.find_by_id(friend.other_user).posts # Add posts of friends
     end
-    @posts.sort! { |x,y| if x.time > y.time then -1 else 1 end} # Sort posts by time
+    @posts.sort! { |x,y| if x.created_at > y.created_at then -1 else 1 end} # Sort posts by time created
     @posts = @posts[0..24] # Only show first 25 posts
   end
 
@@ -40,7 +39,7 @@ class ViewingController < ApplicationController
         @posts_raw = User.find_by_id(params[:userProfile]).posts.reverse
         @posts = []
         @posts_raw.each do |post|
-          if User.find_by_id(session[:login_id]).walldate < post.time
+          if User.find_by_id(session[:login_id]).walldate < post.created_at
              @posts.append(post) # Make list of displayed posts that were created after 'walldate'
           end
         end

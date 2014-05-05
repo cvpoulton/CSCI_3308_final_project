@@ -24,7 +24,7 @@ RSpec.configure do |config|
     visit(login_path)
     fill_in("Username", :with => user)
     fill_in("Password", :with => pass)
-    click_link_or_button("Login")
+    click_button("Login")
   end
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your

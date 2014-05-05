@@ -54,19 +54,18 @@ class AccountController < ApplicationController
   end
 
   def update # Update profile
-    @current_user.update_column(:interests, params[:current_user][:interests]) # update_column() doesn't do validation checks
-    @current_user.update_column(:quotes, params[:current_user][:quotes])
+    @current_user.interests = params[:current_user][:interests] 
+    @current_user.quotes = params[:current_user][:quotes]
+    @current_user.save
     flash[:message] = "Updated profile!"
     redirect_to preferences_path
   end
 
   def create # No view associated with it
-      @new_user = User.create(params[:user]) # Create new user
+      @new_user = User.create(params[:user].merge({:walldate => Time.now})) # Create new user
       if @new_user.valid?
         @current_user = @new_user
         session[:login_id] = @current_user.id
-        @current_user.walldate = Time.now
-        @current_user.save!
         redirect_to newsfeed_path # Redirect to Newsfeed
       else # An error was found
         flash[:error] = @new_user.errors.full_messages()[0] # Display error to user
@@ -75,7 +74,8 @@ class AccountController < ApplicationController
   end
 
   def clear_wall
-    @current_user.update_column(:walldate, Time.now) # We only display posts with create_time > walltime so this clears the wall
+    @current_user.walldate = Time.now # we only show posts with created_at > walldate so this clears the wall
+    @current_user.save
     flash[:message] = "Wall cleared!"
     redirect_to preferences_path
   end
